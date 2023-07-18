@@ -53,6 +53,7 @@ public class RoomNodeGraphEditor : EditorWindow
             roomNodeStyle
         );
 
+        
         EditorGUILayout.LabelField("Node 2");
         GUILayout.EndArea();
     }

@@ -38,6 +38,7 @@ public static class HelperUtilities
             {
                 // in case a value deleted an entry in the inspector but it's actually just became a null value
                 Debug.Log(fieldName + " has null values in object " + thisObject.name.ToString());
+                Debug.Log("Count: " + count);
                 error = true;
             }
             else

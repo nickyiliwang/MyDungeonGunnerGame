@@ -77,7 +77,10 @@ public class RoomNodeSO : ScriptableObject
         string[] roomArray = new string[roomNodeTypeList.list.Count];
         for (int i = 0; i < roomNodeTypeList.list.Count; i++)
         {
-            roomArray[i] = roomNodeTypeList.list[i].roomNodeTypeName;
+            if (roomNodeTypeList.list[i].displayInNodeGraphEditor)
+            {
+                roomArray[i] = roomNodeTypeList.list[i].roomNodeTypeName;
+            }
         }
 
         return roomArray;

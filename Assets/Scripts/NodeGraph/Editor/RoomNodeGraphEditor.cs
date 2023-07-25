@@ -8,6 +8,7 @@ public class RoomNodeGraphEditor : EditorWindow
 {
     private GUIStyle roomNodeStyle;
     private static RoomNodeGraphSO currentRoomNodeGraph;
+    private RoomNodeSO currentRoomNode = null;
     private RoomNodeTypeListSO roomNodeTypeList;
 
     // Node layout values
@@ -88,7 +89,35 @@ public class RoomNodeGraphEditor : EditorWindow
 
     private void ProcessEvent(Event currentEvent)
     {
+        if (currentRoomNode == null || currentRoomNode.isLeftClickDragging == false)
+        {
+            currentRoomNode = IsMouseHoveringRoomNode(currentEvent);
+        }
+
+        if (currentRoomNode == null)
+        {
+            ProcessRoomNodeGraphEvents(currentEvent);
+        }
+        else
+        {
+            currentRoomNode.ProcessEvents(currentEvent);
+        }
+
         ProcessRoomNodeGraphEvents(currentEvent);
+    }
+
+    // looping through every node in the list and comparing the rectangle position with current mouse position, if found return the node as current.
+    private RoomNodeSO IsMouseHoveringRoomNode(Event currentEvent)
+    {
+        for (int i = currentRoomNodeGraph.roomNodeList.Count - 1; i >= 0; i--)
+        {
+            if (currentRoomNodeGraph.roomNodeList[i].rect.Contains(currentEvent.mousePosition))
+            {
+                // Debug.Log("Rectangle" + currentRoomNodeGraph.roomNodeList[i].rect);
+                return currentRoomNodeGraph.roomNodeList[i];
+            }
+        }
+        return null;
     }
 
     private void ProcessRoomNodeGraphEvents(Event currentEvent)
@@ -151,14 +180,13 @@ public class RoomNodeGraphEditor : EditorWindow
         AssetDatabase.SaveAssets();
     }
 
-    private void DrawRoomNodes() { 
-
+    private void DrawRoomNodes()
+    {
         foreach (RoomNodeSO roomNode in currentRoomNodeGraph.roomNodeList)
         {
             roomNode.Draw(roomNodeStyle);
 
             GUI.changed = true;
         }
-
     }
 }

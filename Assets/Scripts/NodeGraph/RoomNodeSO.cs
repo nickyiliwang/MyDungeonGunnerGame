@@ -29,10 +29,14 @@ public class RoomNodeSO : ScriptableObject
     public RoomNodeTypeListSO roomNodeTypeList;
 
 #if UNITY_EDITOR
-
-
     [HideInInspector]
     public Rect rect;
+
+    [HideInInspector]
+    public bool isLeftClickDragging = false;
+
+    [HideInInspector]
+    public bool isSelected = false;
 
     public void Initialize(Rect rect, RoomNodeGraphSO nodeGraph, RoomNodeTypeSO roomNodeType)
     {
@@ -84,6 +88,39 @@ public class RoomNodeSO : ScriptableObject
         }
 
         return roomArray;
+    }
+
+    public void ProcessEvents(Event currentEvent)
+    {
+        switch (currentEvent.type)
+        {
+            case EventType.MouseDown:
+                // left click
+                if (currentEvent.button == 0)
+                {
+                    isSelected = !isSelected;
+                }
+                break;
+            case EventType.MouseUp:
+                if (isLeftClickDragging)
+                {
+                    isLeftClickDragging = false;
+                }
+
+                break;
+            case EventType.MouseDrag:
+                isLeftClickDragging = true;
+
+                // currentEvent.delta counts from og to moved vector
+                rect.position += currentEvent.delta;
+                EditorUtility.SetDirty(this);
+                GUI.changed = true;
+
+                break;
+
+            default:
+                break;
+        }
     }
 
 #endif

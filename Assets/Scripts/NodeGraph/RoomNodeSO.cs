@@ -95,6 +95,8 @@ public class RoomNodeSO : ScriptableObject
         switch (currentEvent.type)
         {
             case EventType.MouseDown:
+                // select in editor selects in inspector
+                Selection.activeObject = this;
                 // left click
                 if (currentEvent.button == 0)
                 {
@@ -113,6 +115,8 @@ public class RoomNodeSO : ScriptableObject
 
                 // currentEvent.delta counts from og to moved vector
                 rect.position += currentEvent.delta;
+
+                // Save changes
                 EditorUtility.SetDirty(this);
                 GUI.changed = true;
 

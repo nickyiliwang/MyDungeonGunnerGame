@@ -1,5 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9209202880330674350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd31f8608cb2dd4e86c72f5572bbf8f, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  id: 3ea49e55-b4f5-495a-bd1e-591e74565f1a
+  parentRoomNodeIDList: []
+  childRoomNodeIDList: []
+  roomNodeGraph: {fileID: 11400000}
+  roomNodeType: {fileID: 11400000, guid: 4c1f82e8bb2da6d47931c9f9fbadeba7, type: 2}
+  roomNodeTypeList: {fileID: 11400000, guid: 02e9dbaaf3f05874fb4fb7a36a38b029, type: 2}
+  rect:
+    serializedVersion: 2
+    x: 269
+    y: 187
+    width: 160
+    height: 75
+  isLeftClickDragging: 0
+  isSelected: 0
 --- !u!114 &-6579735766347441973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,6 +52,58 @@ MonoBehaviour:
     height: 75
   isLeftClickDragging: 0
   isSelected: 0
+--- !u!114 &-4151643659344210228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd31f8608cb2dd4e86c72f5572bbf8f, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  id: cfc000aa-38e3-440d-aa66-47a7ae14fbd8
+  parentRoomNodeIDList: []
+  childRoomNodeIDList: []
+  roomNodeGraph: {fileID: 11400000}
+  roomNodeType: {fileID: 11400000, guid: bccd173848732f447b5c28bc61ffaf65, type: 2}
+  roomNodeTypeList: {fileID: 11400000, guid: 02e9dbaaf3f05874fb4fb7a36a38b029, type: 2}
+  rect:
+    serializedVersion: 2
+    x: 457
+    y: 113
+    width: 160
+    height: 75
+  isLeftClickDragging: 0
+  isSelected: 0
+--- !u!114 &-3616409204541328266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd31f8608cb2dd4e86c72f5572bbf8f, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  id: ea1696c9-08fe-4fb4-85e5-e99e9c9fd7c6
+  parentRoomNodeIDList: []
+  childRoomNodeIDList: []
+  roomNodeGraph: {fileID: 11400000}
+  roomNodeType: {fileID: 11400000, guid: bccd173848732f447b5c28bc61ffaf65, type: 2}
+  roomNodeTypeList: {fileID: 11400000, guid: 02e9dbaaf3f05874fb4fb7a36a38b029, type: 2}
+  rect:
+    serializedVersion: 2
+    x: 346
+    y: 109
+    width: 160
+    height: 75
+  isLeftClickDragging: 0
+  isSelected: 0
 --- !u!114 &-591515110606270180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,12 +120,12 @@ MonoBehaviour:
   parentRoomNodeIDList: []
   childRoomNodeIDList: []
   roomNodeGraph: {fileID: 11400000}
-  roomNodeType: {fileID: 11400000, guid: bccd173848732f447b5c28bc61ffaf65, type: 2}
+  roomNodeType: {fileID: 11400000, guid: b5290c6a0520e73439377c80dff70033, type: 2}
   roomNodeTypeList: {fileID: 11400000, guid: 02e9dbaaf3f05874fb4fb7a36a38b029, type: 2}
   rect:
     serializedVersion: 2
-    x: 388
-    y: 77
+    x: 149
+    y: 139
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -71,6 +149,11 @@ MonoBehaviour:
   - {fileID: -591515110606270180}
   - {fileID: -6579735766347441973}
   - {fileID: 5375203395408890565}
+  - {fileID: -4151643659344210228}
+  - {fileID: -9209202880330674350}
+  - {fileID: -3616409204541328266}
+  roomNodeToDrawLineFrom: {fileID: -591515110606270180}
+  linePosition: {x: 214, y: 408}
 --- !u!114 &5375203395408890565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +196,7 @@ MonoBehaviour:
   parentRoomNodeIDList: []
   childRoomNodeIDList: []
   roomNodeGraph: {fileID: 11400000}
-  roomNodeType: {fileID: 11400000, guid: bccd173848732f447b5c28bc61ffaf65, type: 2}
+  roomNodeType: {fileID: 11400000, guid: 8a899ffa2e070ad4ba6472a7692224b8, type: 2}
   roomNodeTypeList: {fileID: 11400000, guid: 02e9dbaaf3f05874fb4fb7a36a38b029, type: 2}
   rect:
     serializedVersion: 2

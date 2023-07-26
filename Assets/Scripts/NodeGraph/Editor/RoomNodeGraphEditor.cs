@@ -74,36 +74,53 @@ public class RoomNodeGraphEditor : EditorWindow
         // if a SO of type RoomNodeGraphSO has been selected then proceed
         if (currentRoomNodeGraph != null)
         {
-            // Process Event;
-            // such as mouse clicks or selections in the editor
-            ProcessEvent(Event.current);
+            DrawDraggedLine();
+
+            ProcessEvents(Event.current);
 
             DrawRoomNodes();
         }
 
         if (GUI.changed)
+            Repaint(); // Redraw editor
+    }
+
+    private void DrawDraggedLine()
+    {
+        if (currentRoomNodeGraph.linePosition != Vector2.zero)
         {
-            Repaint(); // The Repaint() method forces the repaint of the current window in the Unity editor. This means that the window will be redrawn immediately, updating its content based on the changes made to the GUI elements.
+            // Draw line from node to line pos
+            Handles.DrawBezier(
+                currentRoomNodeGraph.roomNodeToDrawLineFrom.rect.center, // line start
+                currentRoomNodeGraph.linePosition, // line end
+                currentRoomNodeGraph.roomNodeToDrawLineFrom.rect.center, // tangent start
+                currentRoomNodeGraph.linePosition, // tangent end
+                Color.white,
+                null,
+                3f // line width
+            );
         }
     }
 
-    private void ProcessEvent(Event currentEvent)
+    private void ProcessEvents(Event currentEvent)
     {
+        // Get room node that mouse is hovering if it's null or not currently being dragged
         if (currentRoomNode == null || currentRoomNode.isLeftClickDragging == false)
         {
             currentRoomNode = IsMouseHoveringRoomNode(currentEvent);
         }
 
+        // if mouse isn't over a room node or currently dragging a line from the room node then process the graph event
+
         if (currentRoomNode == null)
+        // if (currentRoomNode == null || currentRoomNodeGraph.roomNodeToDrawLineFrom != null)
         {
-            ProcessRoomNodeGraphEvents(currentEvent);
+            ProcessGraphEvents(currentEvent);
         }
         else
         {
-            currentRoomNode.ProcessEvents(currentEvent);
+            currentRoomNode.ProcessNodeEvents(currentEvent);
         }
-
-        ProcessRoomNodeGraphEvents(currentEvent);
     }
 
     // looping through every node in the list and comparing the rectangle position with current mouse position, if found return the node as current.
@@ -113,19 +130,23 @@ public class RoomNodeGraphEditor : EditorWindow
         {
             if (currentRoomNodeGraph.roomNodeList[i].rect.Contains(currentEvent.mousePosition))
             {
-                // Debug.Log("Rectangle" + currentRoomNodeGraph.roomNodeList[i].rect);
+                Debug.Log("hovering" + currentRoomNodeGraph.roomNodeList[i]);
                 return currentRoomNodeGraph.roomNodeList[i];
             }
         }
         return null;
     }
 
-    private void ProcessRoomNodeGraphEvents(Event currentEvent)
+    private void ProcessGraphEvents(Event currentEvent)
     {
         switch (currentEvent.type)
         {
             case EventType.MouseDown:
                 ProcessMouseDownEvent(currentEvent);
+                break;
+
+            case EventType.MouseDrag:
+                ProcessMouseDragEvent(currentEvent);
                 break;
 
             default:
@@ -138,6 +159,19 @@ public class RoomNodeGraphEditor : EditorWindow
         if (currentEvent.button == 1)
         {
             ShowContextMenu(currentEvent.mousePosition);
+        }
+    }
+
+    private void ProcessMouseDragEvent(Event currentEvent)
+    {
+        if (currentEvent.button == 1)
+        {
+            // process right mouse drag
+            if (currentRoomNodeGraph.roomNodeToDrawLineFrom != null)
+            {
+                currentRoomNodeGraph.linePosition += currentEvent.delta;
+                GUI.changed = true;
+            }
         }
     }
 

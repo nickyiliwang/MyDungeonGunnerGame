@@ -90,35 +90,47 @@ public class RoomNodeSO : ScriptableObject
         return roomArray;
     }
 
-    public void ProcessEvents(Event currentEvent)
+    public void ProcessNodeEvents(Event currentEvent)
     {
         switch (currentEvent.type)
         {
             case EventType.MouseDown:
                 // select in editor selects in inspector
-                Selection.activeObject = this;
                 // left click
                 if (currentEvent.button == 0)
                 {
+                    Selection.activeObject = this;
                     isSelected = !isSelected;
                 }
+                // right click draw line
+                else if (currentEvent.button == 1)
+                {
+                    roomNodeGraph.SetNodeToDrawConnectionLineFrom(this, currentEvent.mousePosition);
+                }
+
                 break;
             case EventType.MouseUp:
-                if (isLeftClickDragging)
+                if (currentEvent.button == 0)
                 {
-                    isLeftClickDragging = false;
+                    if (isLeftClickDragging)
+                    {
+                        isLeftClickDragging = false;
+                    }
                 }
 
                 break;
             case EventType.MouseDrag:
-                isLeftClickDragging = true;
+                if (currentEvent.button == 0)
+                {
+                    isLeftClickDragging = true;
 
-                // currentEvent.delta counts from og to moved vector
-                rect.position += currentEvent.delta;
+                    // currentEvent.delta counts from og to moved vector
+                    rect.position += currentEvent.delta;
 
-                // Save changes
-                EditorUtility.SetDirty(this);
-                GUI.changed = true;
+                    // Save changes
+                    EditorUtility.SetDirty(this);
+                    GUI.changed = true;
+                }
 
                 break;
 

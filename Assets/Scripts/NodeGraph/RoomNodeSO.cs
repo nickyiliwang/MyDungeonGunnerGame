@@ -10,14 +10,10 @@ using UnityEditor;
 
 public class RoomNodeSO : ScriptableObject
 {
-    [HideInInspector]
     public string id;
 
     // creates a new instance of the generic List class, specifically instantiated with the type string.
-    [HideInInspector]
     public List<string> parentRoomNodeIDList = new List<string>();
-
-    [HideInInspector]
     public List<string> childRoomNodeIDList = new List<string>();
 
     [HideInInspector]
@@ -137,6 +133,18 @@ public class RoomNodeSO : ScriptableObject
             default:
                 break;
         }
+    }
+
+    public bool AddChildRoomNodeIDToRoomNode(string childID)
+    {
+        childRoomNodeIDList.Add(childID);
+        return true;
+    }
+
+    public bool addParentRoomNodeIDToRoomNode(string parentID)
+    {
+        parentRoomNodeIDList.Add(parentID);
+        return true;
     }
 
 #endif

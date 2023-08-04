@@ -23,14 +23,14 @@ public class RoomNodeGraphEditor : EditorWindow
     [MenuItem("Room Node Graph Editor", menuItem = "Window/Dungeon Editor/Room Node Graph Editor")]
     private static void OpenWindow()
     {
-        GetWindow<RoomNodeGraphEditor>("Room Nodde Graph Editor by Nick");
+        GetWindow<RoomNodeGraphEditor>("Room Node Graph Editor by Nick");
     }
 
     private void OnEnable()
     {
         // Define node layout style
         roomNodeStyle = new GUIStyle();
-        //taloring what that GUI style background consist of
+        //tailoring what that GUI style background consist of
         //by loading predefined stuff like "node1"
         roomNodeStyle.normal.background = EditorGUIUtility.Load("node1") as Texture2D;
         //Like CSS
@@ -121,6 +121,14 @@ public class RoomNodeGraphEditor : EditorWindow
     {
         Vector2 startPosition = parentRoomNode.rect.center;
         Vector2 endPosition = childRoomNode.rect.center;
+
+        // drawing a arrow
+
+        Vector2 midPosition = (endPosition + startPosition) / 2f;
+
+        // direction vector
+
+
 
         Handles.DrawBezier(
             startPosition,

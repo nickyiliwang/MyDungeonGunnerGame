@@ -54,16 +54,25 @@ public class RoomNodeSO : ScriptableObject
         // Start region to detect popup selection changes
         EditorGUI.BeginChangeCheck();
 
-        // Display a popup using the RoomNodeType name values that can be selected from (default to the currently set roomNodeType)
-        int selectedRoomNodeType = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
+        // if room node has a parent or is type entrance then display a label else display a pop up
+        if (parentRoomNodeIDList.Count > 0 || roomNodeType.isEntrance)
+        {
+            // Display a unchangeable label instead of a flexible dropdown
+            EditorGUILayout.LabelField(roomNodeType.roomNodeTypeName);
+        }
+        else
+        {
+            // Display a popup using the RoomNodeType name values that can be selected from (default to the currently set roomNodeType)
+            int selectedRoomNodeType = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
 
-        int selection = EditorGUILayout.Popup(
-            "",
-            selectedRoomNodeType,
-            GetRoomNodeTypeNamesToDisplay()
-        );
+            int selection = EditorGUILayout.Popup(
+                "",
+                selectedRoomNodeType,
+                GetRoomNodeTypeNamesToDisplay()
+            );
 
-        roomNodeType = roomNodeTypeList.list[selection];
+            roomNodeType = roomNodeTypeList.list[selection];
+        }
 
         if (EditorGUI.EndChangeCheck())
             EditorUtility.SetDirty(this); // makes sure any changes gets saves

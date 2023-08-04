@@ -19,6 +19,8 @@ public class RoomNodeGraphEditor : EditorWindow
     private const int nodeBorder = 12;
 
     private const float lineWidth = 3f;
+    private const float connectingLineArrowSize = 6f;
+    private const float connectingLineWidth = 3f;
 
     [MenuItem("Room Node Graph Editor", menuItem = "Window/Dungeon Editor/Room Node Graph Editor")]
     private static void OpenWindow()
@@ -123,12 +125,44 @@ public class RoomNodeGraphEditor : EditorWindow
         Vector2 endPosition = childRoomNode.rect.center;
 
         // drawing a arrow
+        // I don't really get this I went to OCAD, but it's something about using perpendicular vectors
 
-        Vector2 midPosition = (endPosition + startPosition) / 2f;
+        // Vector2 threeThirdPosition = startPosition + (endPosition - startPosition) * 2 / 3f;
+        Vector2 midPosition = (startPosition + endPosition) / 2f;
 
         // direction vector
+        Vector2 direction = endPosition - startPosition;
 
+        // calculate normalized perpendicular positions form the mid point
+        Vector2 arrowTailPoint1 =
+            midPosition
+            - new Vector2(-direction.y, direction.x).normalized * connectingLineArrowSize;
+        Vector2 arrowTailPoint2 =
+            midPosition
+            + new Vector2(-direction.y, direction.x).normalized * connectingLineArrowSize;
 
+        Vector2 arrowHeadPoint = midPosition + direction.normalized * connectingLineArrowSize;
+
+        // Draw arrow from points
+        Handles.DrawBezier(
+            arrowHeadPoint,
+            arrowTailPoint1,
+            arrowHeadPoint,
+            arrowTailPoint1,
+            Color.white,
+            null,
+            connectingLineWidth
+        );
+
+        Handles.DrawBezier(
+            arrowHeadPoint,
+            arrowTailPoint2,
+            arrowHeadPoint,
+            arrowTailPoint2,
+            Color.white,
+            null,
+            connectingLineWidth
+        );
 
         Handles.DrawBezier(
             startPosition,
